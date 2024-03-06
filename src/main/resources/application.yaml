@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  data:
+    rest:
+      base-path: /data-api
+
+server:
+  port: 60002
+  servlet:
+    context-path: /giftApp

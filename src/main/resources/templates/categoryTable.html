@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-my-category}"/>
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+<div class="content">
+
+    <div th:replace="~{template::header}"></div>
+
+    <section class="main-content">
+        <div class="container">
+            <h3 th:text="#{category-list}"/>
+            <h4 th:if="${categories.isEmpty()}" th:text="'---' + #{empty-list} + '---'"/>
+            <table class="table" th:unless="${categories.isEmpty()}">
+                <tr class="table-row">
+                    <th class="column-rate" th:text="#{column-rate}"/>
+                    <th class="col-description" th:text="#{column-description}"/>
+                    <th class="col-available" th:text="#{column-available-on-default}"/>
+                    <th class="col-description" th:text="#{column-commentary}"/>
+                </tr>
+                <tr class="table-row" th:each="category: ${categories}">
+                    <td class="table-cell"><span th:text="*{category.getRate}">~</span><span>/10</span></td>
+                    <td class="table-cell"><span th:text="*{category.getDescription}">~</span></td>
+                    <td th:if="*{category.availableOnDefault} == true">
+                        <ion-icon name="checkmark-sharp"></ion-icon>
+                    </td>
+                    <td th:if="*{category.availableOnDefault} != true">
+
+                    </td>
+                    <td class="table-cell"><span th:text="*{category.getCommentary}">~</span></td>
+
+                    <td class="table-cell">
+                        <form method="post">
+                            <input class="yellow-button" type="submit" th:value="#{button-change}">
+                            <input type="hidden" name="changeCategoryId" th:value="*{category.id}">
+                        </form>
+                    </td>
+                    <td class="table-cell">
+                        <form method="post">
+                            <input class="red-button" type="submit" th:value="#{button-delete}">
+                            <input type="hidden" name="deleteCategoryId" th:value="*{category.id}">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <form method="get" name="create">
+                <input class="green-button" type="submit" th:value="#{button-create}" name="create">
+            </form>
+
+
+        </div>
+    </section>
+</div>
+
+<div th:replace="~{template::footer}"></div>
+
+</body>
+
+</html>

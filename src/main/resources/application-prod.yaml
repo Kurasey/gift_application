@@ -1,0 +1,20 @@
+logging:
+  level:
+    root: ALL
+  path: /val/logs
+  file: GiftApp.log
+spring:
+  datasource:
+    username: postgres
+    password: kKu7fNds
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=giftApp
+    driver-class: org.postgresql.Driver
+    schema:
+      - schema.sql
+  jpa:
+    defer-datasource-initialization=true:
+    hibernate:
+      ddl-auto: none
+    sql:
+      init:
+        mode: always

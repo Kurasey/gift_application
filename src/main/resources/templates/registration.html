@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-registration}"/>
+    <link rel="stylesheet" th:href="@{/styles/helloStyle.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+<div class="title">
+    <h2 th:text="#{title-registration}"/>
+</div>
+<form class="form" method="post" id="registrationForm" th:object="${registrationForm}">
+    <label for="username"><span th:text="#{text-username}"/><span style="color: red">*</span>:</label>
+    <div class="validationError" th:if="${#fields.hasErrors('username')}"
+         th:errors="*{username}" th:text="#{error-validation-field}"/>
+    <div>
+        <ion-icon name="person-outline"></ion-icon>
+        <input class="input" type="text" name="username" id="username" th:field="*{username}" required>
+    </div>
+    <label for="password"><span th:text="#{text-password}"/><span style="color: red">*</span>:</label>
+    <div class="validationError" th:if="${#fields.hasErrors('password')}"
+         th:errors="*{password}" th:text="#{error-validation-field}"/>
+    <div>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <input class="input" type="text" name="password" id="password" th:field="*{password}" required>
+    </div>
+    <label for="email"><span th:text="#{text-email}"/><span style="color: red">*</span>:</label>
+    <div class="validationError" th:if="${#fields.hasErrors('email')}"
+         th:errors="*{email}" th:text="#{error-validation-field}"/>
+    <div>
+        <ion-icon name="mail-outline"></ion-icon>
+        <input class="input" type="email" name="email" id="email" th:field="*{email}" required>
+    </div>
+    <button type="submit" th:text="#{button-registration}"/>
+    <a th:href="@{/login}">
+        <button type="button" th:text="#{button-login}"/>
+    </a>
+</form>
+</body>
+</html>

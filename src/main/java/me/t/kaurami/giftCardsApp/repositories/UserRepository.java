@@ -1,0 +1,13 @@
+package me.t.kaurami.giftCardsApp.repositories;
+
+import me.t.kaurami.giftCardsApp.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    User findByUsername(String username);
+
+    List<User> findByUsernameContainingIgnoringCase(String namePart);
+}

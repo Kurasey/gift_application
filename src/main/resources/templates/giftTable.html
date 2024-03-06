@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-my-gifts}"/>
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="stylesheet" href="/styles/general_style.css">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+<div class="content">
+
+    <div th:replace="~{template::header}"></div>
+
+    <section class="main-content">
+        <div class="container">
+            <h4 th:if="${giftList.isEmpty()}" th:text="'---' + #{empty-list} + '---'"/>
+            <table class="table" th:unless="${giftList.isEmpty()}">
+                <tr class="table-row">
+                    <th class="column-rate" th:text="#{column-rate}"/>
+                    <th class="col-description" th:text="#{column-description}"/>
+                    <th class="table-article-number"th:text="#{column-article-number}"/>
+                    <th class="table-cell"th:text="#{column-commentary}"/>
+                    <th class="table-cell"th:text="#{column-link}"/>
+                    <th class="table-cell"th:text="#{column-categories}"/>
+                </tr>
+                <tr class="table-row" th:each="giftCard: ${giftList}">
+                    <td class="table-cell"><span th:text="*{giftCard.getRate}">~</span><span>/10</span></td>
+                    <td class="table-cell" th:text="*{giftCard.getDescription}"/>
+                    <td class="table-cell" th:text="*{giftCard.getArticleNumber}"/>
+                    <td class="table-cell" th:text="*{giftCard.getCommentary}"/>
+                    <td class="table-cell"><p th:text="*{giftCard.getLink}" th:href="*{giftCard.getLink}"
+                                              class="gift_link">link</p></td>
+                    <td class="table-cell">
+                        <a th:each="cat: ${giftCard.getCategories}" th:href="${cat.id}" class="category-reference"
+                           th:text="${cat.description}">category</a>
+                    </td>
+                    <td class="table-cell">
+                        <form method="post">
+                            <input class="yellow-button" type="submit" th:value="#{button-change}"/>
+                            <input type="hidden" name="updateGiftId" th:value="*{giftCard.getGiftId}">
+                        </form>
+                    </td>
+                    <td class="table-cell">
+                        <form method="post">
+                            <input class="red-button" type="submit" th:value="#{button-delete}"/>
+                            <input type="hidden" name="deleteGiftId" th:value="*{giftCard.getGiftId}">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <form th:action="@{/gifts/create}" method="get">
+                <input class="green-button" type="submit" th:value="#{button-create}"/>
+            </form>
+
+        </div>
+    </section>
+</div>
+
+<div th:replace="~{template::footer}"></div>
+
+</body>
+
+</html>

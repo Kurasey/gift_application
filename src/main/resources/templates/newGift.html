@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-new-gift}"/>
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+</head>
+
+<body>
+
+<div class="content">
+
+    <div th:replace="~{template::header}"></div>
+
+
+    <section class="main-content">
+        <div class="container">
+            <form method="post" oninput="result.value=rate.value" th:object="${giftDetail}">
+                <div>
+                    <label class="label-for-input" for="description"><span th:text="#{column-description}"/> <span style="color: red">*</span></label>
+                    <input class="input" type="text" id="description" th:field="*{description}" autocomplete="false">
+                    <span class="validationError" th:if="${#fields.hasErrors('description')}"
+                          th:errors="*{description}" th:text="#{error-validation-field}"/>
+                </div>
+                <div>
+                    <label class="label-for-input" for="articleNumber" th:text="#{column-article-number}"/>
+                    <input class="input" type="text" id="articleNumber" th:field="*{articleNumber}">
+                    <span class="validationError" th:if="${#fields.hasErrors('articleNumber')}"
+                          th:errors="*{articleNumber}" th:text="#{error-validation-field}"/>
+
+                </div>
+                <div>
+                    <label class="label-for-input" for="comment" th:text="#{column-commentary}"/>
+                    <input class="input" type="text" id="comment" th:field="*{commentary}">
+                    <span class="validationError" th:if="${#fields.hasErrors('commentary')}"
+                          th:errors="*{commentary]" th:text="#{error-validation-field}"/>
+                </div>
+                <div>
+                    <label class="label-for-input" for="link" th:text="#{column-link}"/>
+                    <input class="input" type="text" id="link" th:field="*{link}">
+                    <span class="validationError" th:if="${#fields.hasErrors('link')}"
+                          th:errors="*{link}" th:text="#{error-validation-field}"/>
+                </div>
+                <div>
+                    <label class="label-for-input" for="rate" th:text="#{column-rate}"/>
+                    <input class="input" type="range" id="rate" min="0" max="10" step="1" name="rate" value="5"
+                           th:field="*{rate}">
+                    <output name="result" for="rate"><span th:text="${giftDetail.rate}"/></output>
+                    <span class="validationError" th:if="${#fields.hasErrors('rate')}"
+                          th:errors="*{rate}" th:text="#{error-validation-field}"/>
+                </div>
+                <table>
+                    <tr>
+                        <th><label class="label-for-input" for="selected-category-list"><span th:text="#{column-selected-categories}"/> <span style="color: red">*</span></label></th>
+                        <th><span class="validationError" th:if="${#fields.hasErrors('categories')}"
+                                  th:errors="*{'categories'}" th:text="#{error-validation-field}"/></th>
+                        <th><label class="label-for-input" for="available-category-list" th:text="#{column-available-categories}"/></th>
+                    </tr>
+                    <tr>
+                            <td>
+                                <div>
+                                    <select id="selected-category-list" class="category-box"
+                                            th:field="*{categories}" multiple required>
+                                        <option th:each="cat : ${categories}"
+                                                th:value="${cat.id}"
+                                                th:text="${cat.description}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" class="add_category" th:onclick="addAtributes()"><=</button>
+                                <button type="button" class="remove_category" th:onclick="removeAtributes()">=></button>
+                            </td>
+                            <td>
+                                <div>
+                                    <select id="available-category-list" class="category-box" multiple>
+                                        <option th:each="cat : ${availableCategories}"
+                                                th:value="${cat.id}"
+                                                th:text="${cat.description}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        <td>
+                            <a th:href="@{/categories/create}" class="new-category" target="_blank">+</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <div>
+                    <button class="green-button" th:text="#{button-create}"/>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+
+<div th:replace="~{template::footer}"></div>
+</body>
+<script type="text/javascript" th:src="@{/js/actions.js}"></script>
+</html>

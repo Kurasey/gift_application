@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-subscribers-and-subscription}"/>
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+
+<div th:replace="~{template::header}">
+
+</div>
+<div class="content">
+
+    <div class="wrapper">
+        <div class="tabs">
+
+            <div class="tab">
+                <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch"
+                       th:onclick="switchPage('search-page')">
+                <label for="tab-1" class="tab-label" th:text="#{text-search}"/>
+                <div id="search-page" class="tab-content">
+                    <h3 th:text="#{users-list}"/>
+                    <table>
+                        <tr th:each="info: ${usersInfo}">
+                            <td th:text="${info.username}"/>
+                            <td th:if="${info.hasSubscribe}">
+                                <form method="post">
+                                    <button class="icon-button">
+                                        <ion-icon name="heart"></ion-icon>
+                                    </button>
+                                    <input type="hidden" name="cancelSubscription" th:value="${info.username}">
+                                </form>
+                            </td>
+                            <td th:if="!${info.hasSubscribe}">
+                                <form method="post">
+                                    <button class="icon-button">
+                                        <ion-icon name="heart-outline"></ion-icon>
+                                    </button>
+                                    <input type="hidden" name="username" th:value="${info.username}">
+                                </form>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="tab">
+                <input type="radio" name="css-tabs" id="tab-2" class="tab-switch"
+                       th:onclick="switchPage('subscribers-page')">
+                <label for="tab-2" class="tab-label" th:text="#{text-subscribers}"/>
+                <div id="subscribers-page" class="tab-content">
+                    <table class="table-user">
+                        <tr th:each="s: ${subscribers}">
+                            <td th:text="${s.username}">username</td>
+                            <td>
+                                <form method="post">
+                                    <button class="icon-button">
+                                        <ion-icon name="settings"></ion-icon>
+                                    </button>
+                                    <input type="hidden" name="customizeSubscribe" th:value="${s.username}">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab">
+                <input type="radio" name="css-tabs" id="tab-3" class="tab-switch"
+                       th:onclick="switchPage('subscribe-page')">
+                <label for="tab-3" class="tab-label" th:text="#{text-subscriptions}"/>
+                <div id="subscribe-page" class="tab-content">
+                    <table class="table-user">
+                        <tr th:each="s: ${subscriptions}">
+                            <td th:text="${s.username}">username</td>
+                            <td>
+                                <form method="post">
+                                    <button class="icon-button">
+                                        <ion-icon name="heart-dislike-outline"></ion-icon>
+                                    </button>
+                                    <input type="hidden" name="cancelSubscription" th:value="${s.username}">
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" name="gifts">
+                                    <button class="icon-button">
+                                        <ion-icon name="gift-outline"></ion-icon>
+                                    </button>
+                                    <input type="hidden" name="userGifts" th:value="${s.username}">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div th:replace="~{template::footer}">
+
+</div>
+
+</body>
+
+<script type="text/javascript" th:src="@{/js/multi-page.js}"></script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-subscribe-customization}"/>
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+
+</head>
+
+<body>
+
+<div class="content">
+
+    <div th:replace="~{template::header}"></div>
+
+    <section class="main-content">
+        <div class="container">
+            <h3 class="titles" th:text="#{text-subscribe-customization-from-to(${details.subscriber.username}, ${details.receiver.username})}"/>
+
+
+            <form method="post" th:object="${details}" oninput="resultMin.value=minRate.value; resultMax.value=maxRate.value">
+                                <div>
+                    <input th:field="*{subscriber}" hidden>
+                    <input th:field="*{receiver}" hidden>
+                    <label class="label-for-input" for="minRate" th:text="#{text-available-from}"/>
+                    <input class="input" type="range" id="minRate" min="0" max="10" step="1" name="minRate" value="0"
+                           th:field="*{availableMinRate}">
+                    <output name="resultMin" for="min-rate">0</output>
+                    <span class="validationError" th:if="${#fields.hasErrors('availableMinRate')}"
+                          th:errors="*{availableMinRate}" th:text="#{error-validation-field}"/>
+                </div>
+
+                <div>
+                    <label class="label-for-input" for="maxRate" th:text="#{text-available-to}"/>
+                    <input class="input" type="range" id="maxRate" min="0" max="10" step="1" name="maxRate" value="0"
+                           th:field="*{availableMaxRate}">
+                    <output name="resultMax" for="max-rate">0</output>
+                    <span class="validationError" th:if="${#fields.hasErrors('availableMaxRate')}"
+                          th:errors="*{availableMaxRate}" th:text="#{error-validation-field}"/>
+                </div>
+
+
+                <table>
+                    <tr>
+                        <th><label class="label-for-input" for="selected-category-list"  th:text="#{column-selected-categories}"/> </th>
+                        <th><span class="validationError" th:if="${#fields.hasErrors('availableCategories')}" th:errors="*{'availableCategories'}">Ошибка при заполнении поля</span></th>
+                        <th><label class="label-for-input" for="available-category-list" th:text="#{column-available-categories}"/>  </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <select id="selected-category-list" class="category-box"
+                                        th:field="*{availableCategories}" multiple required>
+                                    <option th:each="cat : *{availableCategories}"
+                                            th:value="${cat.id}"
+                                            th:text="${cat.description}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="add_category" th:onclick="addAtributes()"><=</button>
+                            <button type="button" class="remove_category" th:onclick="removeAtributes()">=></button>
+                        </td>
+                        <td>
+                            <div>
+                                <select id="available-category-list" class="category-box" multiple>
+                                    <option th:each="cat : ${userCategories}"
+                                            th:value="${cat.id}"
+                                            th:text="${cat.description}"></option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="#" class="new-category" target="_blank">+</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <input th:field="*{id}" hidden>
+                <div>
+                    <button class="green-button" th:text="#{button-submit}"/>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+<div th:replace="~{template::footer}"></div>
+
+</body>
+<script type="text/javascript" th:src="@{/js/actions.js}"></script>
+</html>

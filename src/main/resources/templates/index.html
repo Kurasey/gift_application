@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-homepage}"/>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()" th:replace="~{template::header}"></div>
+
+
+<div class="content">
+
+    <div sec:authorize="isAnonymous()">
+        <h1 th:text="#{unauthorized-message}"/>
+        <a th:href="@{/login}"><button type="button" class="green-button" th:text="#{button-login}"/></a>
+        <a th:href="@{/registration}"><button type="button" class="green-button" th:text="#{button-registration}"/></a>
+    </div>
+</div>
+
+<div th:replace="~{template::footer}"></div>
+</body>
+
+</html>

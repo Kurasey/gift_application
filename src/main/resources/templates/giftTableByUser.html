@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-gifts} + ' ' + ${username}"></title>
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+<div class="content">
+
+    <div th:replace="~{template::header}"></div>
+
+    <section class="main-content">
+        <div class="container">
+            <h3 th:text="#{user-gift-list} + ' ' + ${username}"/>
+            <h4 th:if="${giftDetailViews.isEmpty()}" th:text="'---' + #{empty-list} + '---'"/>
+            <table class="table" th:unless="${giftDetailViews.isEmpty()}">
+                <tr class="table-row">
+                    <th class="column-rate" th:text="#{column-rate}"/>
+                    <th class="col-description" th:text="#{column-description}"/>
+                    <th class="table-head" th:text="#{column-article-number}"/>
+                    <th class="table-cell" th:text="#{column-commentary}"/>
+                    <th class="table-cell" th:text="#{column-link}"/>
+                    <th class="table-cell" th:text="#{column-categories}"/>
+                </tr>
+
+                <tr class="table-row" th:each="giftDetailView: ${giftDetailViews}">
+                    <div th:object="${giftDetailView.giftDetail}">
+
+
+                        <td class="table-cell"><span th:text="*{getRate}">~</span><span>/10</span></td>
+                        <td class="table-cell" th:text="*{getDescription}"/>
+                        <td class="table-cell" th:text="*{getArticleNumber}"/>
+                        <td class="table-cell" th:text="*{getCommentary}"/>
+                        <td class="table-cell"><p th:text="*{getLink}" th:href="*{getLink}"
+                                                  class="gift_link">link</p></td>
+
+                        <td class="table-cell">
+                            <a th:each="cat: *{getCategories}" th:if="${availableCategories.contains(cat)}" th:href="${cat.id}" class="category-reference"
+                               th:text="${cat.description}">category</a>
+                        </td>
+
+                        <td class="table-cell">
+                            <form method="post">
+                                <input class="green-button" type="submit" th:value="#{button-to-favorites}"/>
+                                <input type="hidden" name="inFavoriteGiftId" th:value="*{getGiftId}">
+                            </form>
+                        </td>
+
+                        <td class="table-cell" th:if="${!giftDetailView.booked}">
+                            <form method="post">
+                                <input class="green-button" type="submit" th:value="#{button-booking}"/>
+                                <input type="hidden" name="bookingGiftId" th:value="*{getGiftId}">
+                            </form>
+                        </td>
+
+                        <td class="table-cell" th:if="${giftDetailView.booked}">
+                            <form method="post">
+                                <input class="red-button" type="submit" th:value="#{button-unbooking}"/>
+                                <input type="hidden" name="unbookingGiftId" th:value="*{getGiftId}">
+                            </form>
+                        </td>
+
+                    </div>
+
+                </tr>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div th:replace="~{template::footer}"></div>
+
+</body>
+
+</html>

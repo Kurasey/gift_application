@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-error}"/>
+    <link rel="stylesheet" th:href="@{/styles/errorStyle.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+
+</head>
+<body>
+<div>
+    <div>
+        <p th:text="${exceptionMessage}" class="error"/>
+    </div>
+</div>
+
+</body>
+
+</html>

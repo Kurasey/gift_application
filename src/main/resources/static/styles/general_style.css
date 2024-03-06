@@ -1,0 +1,293 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  color: black;
+  font-family: "sans-serif";
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
+  padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    padding: 15px 0;
+    border-bottom: 3px solid black;
+    border-radius: 155px;
+}
+
+.header .container{
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    margin-left: 50px;
+}
+
+.menu-list {
+    list-style: none;
+    display: flex;
+}
+
+.menu-item {
+    margin-right: 100px;
+    user-select: none;
+}
+
+.menu-item a {
+    color: black;
+    front-size: 18px;
+    text-decoration: none;
+    pointer: cursor;
+}
+
+.menu-item a:hover {
+    border-bottom: 2px solid black;
+    border-radius: 3px;
+}
+
+.menu-item-notification {
+    cursor:pointer;
+    user-select: none;
+}
+
+.main-content {
+    padding-top: 50px;
+}
+
+.red-button {
+    width: 90px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: red;
+    cursor: pointer;
+    border: 0;
+    font-size: 18px;
+}
+
+.red-button:hover {
+    background-color: FireBrick;
+}
+.yellow-button {
+    width: 90px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: Yellow;
+    cursor: pointer;
+    border: 0;
+    font-size: 18px;
+}
+
+.yellow-button:hover {
+    background-color: Olive;
+}
+
+.green-button {
+    width: 120px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: Chartreuse;
+    cursor: pointer;
+    border: 0;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.green-button:hover {
+    background-color: Lime;
+}
+
+
+
+.footer {
+    flex-shrink: 0;
+    padding: 20px;
+    background: DimGray;
+}
+
+.footer-contact {
+    font-size: 10px;
+    background: DimGray;
+}
+
+.input {
+    margin-top: 10px;
+    border: 0;
+    border-bottom: 1px solid black;
+    border-radius: 15px;
+    margin-left: 10px;
+    width: 300px;
+}
+
+.label-for-input {
+    margin-top: 10px;
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+
+.category-box {
+    width: 300px;
+    border-radius: 5px;
+}
+
+.validationError {
+    color: red;
+    font-size: 12px;
+}
+
+.input_file {
+    width: 300px;
+}
+
+.gift_img {
+    height: 341px;
+    width: 400px;
+}
+
+.table {
+    align: right;
+    width: 100%;
+    frame: border;
+}
+
+.table-head {
+    align: center;
+}
+
+.category-reference {
+    text-decoration: none;
+    pointer: cursor;
+    color: black;
+    margin-right: 5px;
+}
+
+.gift_link {
+        text-decoration: none;
+        pointer: cursor;
+        color: black;
+}
+
+.new-category {
+    text-decoration: none;
+    background: Chartreuse;
+    border-radius: 15px;
+    font-size: 40px;
+}
+.new-category:hover {
+    background: Lime;
+}
+
+.warning {
+    color: red;
+    text-transform: uppercase;
+    font-size: 20px;
+
+}
+.add_category {
+    border: 0;
+    background: Chartreuse;
+    cursor: pointer;
+}
+
+.add_category:hover {
+    background: Lime;
+}
+
+.remove_category {
+    border: 0;
+    background: red;
+    cursor: pointer;
+}
+
+.remove_category:hover {
+    background: FireBrick;
+}
+
+.tabs {
+  position: relative;
+  margin: 3rem 0;
+}
+.tab {
+  float: left;
+}
+.tab-switch {
+  display: none;
+}
+.tab-label {
+  user-select: none;
+  position: relative;
+  display: block;
+  height: 2em;
+  padding: 0.5em 2.5em;
+  background: silver;
+  border-radius: 1em;
+  color: white;
+  cursor: pointer;
+  top: 10px;
+  transition: all 1s;
+  margin-right: 2em;
+}
+.tab-label:hover {
+  top: -0.3rem;
+  transition: top 1s;
+}
+
+.tab-content {
+  position: absolute;
+  z-index: 1;
+  top: 4em;
+  left: 2em;
+  padding: 2em;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.tab-switch:checked + .tab-label {
+  background: DarkGrey;
+  color: black;
+  transition: all 0.5s;
+  top: -0.5rem;
+}
+.tab-switch:checked + label + .tab-content {
+  z-index: 2;
+  opacity: 1;
+  transition: all 0.35s;
+}
+
+.input-text {
+    border-radius: 5px;
+    border: 1px solid Grey;
+    width: 350px;
+}
+
+.button-search {
+    border: 0;
+    background: LightGray;
+    width: 90px;
+    cursor: pointer;
+}
+
+.button-search:hover {
+    background: DarkGrey;
+}
+
+.icon-button {
+    cursor: pointer;
+    border: 0;
+}
