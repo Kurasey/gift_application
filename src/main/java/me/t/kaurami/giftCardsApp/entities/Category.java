@@ -3,12 +3,15 @@ package me.t.kaurami.giftCardsApp.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +24,8 @@ public class Category {
     private String commentary;
     @NotNull(message = "{validation.nullUser}")
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     private boolean availableOnDefault;

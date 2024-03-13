@@ -19,14 +19,12 @@
                     <a th:href="@{/admin}"
                        class="menu-item" th:text="#{title-admin-panel}"></a>
                 </li>
-                <li class="menu-item">
-                    <ion-icon name="notifications-outline"></ion-icon>
-                    <span th:if="${notification} == 0">
-                    0
-                    </span>
-                    <span th:if="${notification} != 0" >
-                        <span text="!"/>
-                    </span>
+                <li class="menu-item" th:if="${events}">
+                    <a th:href="@{/notification}">
+                        <ion-icon name="notifications-outline"></ion-icon>
+                        <span th:text="${events.size}"/>
+                    </a>
+
                 </li>
 
                 <li class="menu-item">

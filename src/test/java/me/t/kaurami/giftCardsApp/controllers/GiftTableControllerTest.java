@@ -8,6 +8,7 @@ import me.t.kaurami.giftCardsApp.services.bookingservice.BookingService;
 import me.t.kaurami.giftCardsApp.services.bookingservice.BookingStatus;
 import me.t.kaurami.giftCardsApp.services.giftservice.GiftService;
 import me.t.kaurami.giftCardsApp.entities.SubscriptionDetails;
+import me.t.kaurami.giftCardsApp.services.notificationservice.NotificationService;
 import me.t.kaurami.giftCardsApp.services.subscribeservice.SubscribeService;
 import me.t.kaurami.giftCardsApp.services.userservice.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -46,6 +47,9 @@ public class GiftTableControllerTest {
 
     @MockBean
     BookingService bookingService;
+
+    @MockBean
+    NotificationService notificationService;
 
     Category availableCat1;
     Category notAvailableCat;

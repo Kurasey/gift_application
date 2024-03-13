@@ -45,13 +45,6 @@
                                th:text="${cat.description}">category</a>
                         </td>
 
-                        <td class="table-cell">
-                            <form method="post">
-                                <input class="green-button" type="submit" th:value="#{button-to-favorites}"/>
-                                <input type="hidden" name="inFavoriteGiftId" th:value="*{getGiftId}">
-                            </form>
-                        </td>
-
                         <td class="table-cell" th:if="${!giftDetailView.booked}">
                             <form method="post">
                                 <input class="green-button" type="submit" th:value="#{button-booking}"/>

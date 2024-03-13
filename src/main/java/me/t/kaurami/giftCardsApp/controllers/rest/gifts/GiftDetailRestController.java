@@ -1,4 +1,4 @@
-package me.t.kaurami.giftCardsApp.controllers.rest;
+package me.t.kaurami.giftCardsApp.controllers.rest.gifts;
 
 import me.t.kaurami.giftCardsApp.entities.User;
 import me.t.kaurami.giftCardsApp.entities.GiftDetail;

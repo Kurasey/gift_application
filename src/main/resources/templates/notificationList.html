@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{title-notifications}"/>
+    <link rel="stylesheet" th:href="@{/styles/general_style.css}">
+    <link rel="shortcut icon" th:href="@{/images/icon.png}" type="image/png">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+</head>
+<body>
+<div class="content">
+
+    <div th:replace="~{template::header}"></div>
+
+    <section class="main-content">
+        <div class="container">
+            <span th:if="${events.isEmpty()}" th:text="'---' + #{empty-list} + '---'"/>
+            <ul class="list">
+                <li th:each="event: ${events}">
+
+                    <form method="post">
+                        <button type="submit"><ion-icon name="checkmark-outline"></ion-icon></button>
+
+                        <span th:text="${event.createdAt} + ' ' +  #{${event.getClass().getSimpleName()}(${event.eventFrom.username})}"></span>
+                        <input type="hidden" name="setDeliveredId" th:value="*{event.id}">
+                    </form>
+                </li>
+            </ul>
+
+        </div>
+    </section>
+</div>
+
+<div th:replace="~{template::footer}"></div>
+
+</body>
+</html>

@@ -22,20 +22,24 @@ public class GiftServiceImpl implements GiftService {
         this.giftRepository = giftRepository;
     }
 
+    @Override
     public Iterable<GiftDetail> getGiftListByUser(User user) {
         return giftRepository.findByUser(user);
     }
 
-    @PreAuthorize("#giftCard.user.equals(authentication.principal.username)")
+    @Override
+    @PreAuthorize("#giftCard.user.username.equals(authentication.principal.username)")
     public GiftDetail saveGift(GiftDetail giftCard) {
         return giftRepository.save(giftCard);
     }
 
+    @Override
     @PreAuthorize("#user.username.equals(authentication.principal.username)")
     public List<GiftDetail> getCurrentUserGifts(User user) {
         return giftRepository.findByUser(user);
     }
 
+    @Override
     @PreAuthorize("#details.subscriber.username.equals(authentication.principal.username)")
     public List<GiftDetail> getGiftListBySubscription(SubscriptionDetails details) {
         return giftRepository.findByCategoriesInAndRateBetween(
@@ -44,6 +48,7 @@ public class GiftServiceImpl implements GiftService {
                 details.getAvailableMaxRate());
     }
 
+    @Override
     public GiftDetail getById(Long detailId){
         Optional<GiftDetail> giftDetail = giftRepository.findById(detailId);
         if (giftDetail.isPresent())
@@ -51,6 +56,7 @@ public class GiftServiceImpl implements GiftService {
         throw new NoSuchElementException();
     }
 
+    @Override
     public void deleteGift(Long giftId) {
         giftRepository.deleteById(giftId);
     }

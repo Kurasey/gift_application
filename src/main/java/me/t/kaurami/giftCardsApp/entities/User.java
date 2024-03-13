@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import me.t.kaurami.giftCardsApp.configs.security.authorities.UserRole;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
 @Entity
-@Table(name = "user-details", indexes = @Index(columnList = "username"))
+@Table(name = "user_details", indexes = @Index(columnList = "username"))
 public class User implements UserDetails, Comparable<User> {
 
     @Id
@@ -25,7 +27,9 @@ public class User implements UserDetails, Comparable<User> {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            foreignKey = @ForeignKey(name = "fk_role", foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES user_details (user_id) ON DELETE CASCADE")
+    )
     private List<UserRole> roles;
     private boolean accountNonExpired = true;
     private boolean enabled = true;

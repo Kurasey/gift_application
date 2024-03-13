@@ -1,11 +1,16 @@
 package me.t.kaurami.giftCardsApp.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Immutable;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "booking_details")
+@Immutable
 public class BookingDetails {
 
     @Id
@@ -15,16 +20,21 @@ public class BookingDetails {
 
     @OneToOne
     @JoinColumn(name = "gift_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private GiftDetail giftDetail;
 
     @ManyToOne
     @JoinColumn(name = "user_booked_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User bookedBy;
 
     @ManyToOne
     @JoinColumn(name = "user_gift_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User giftUser;
 
+    @CreationTimestamp
+    @Column(name = "booked_at", updatable = false)
     private LocalDate bookedAt;
 
     protected BookingDetails() {

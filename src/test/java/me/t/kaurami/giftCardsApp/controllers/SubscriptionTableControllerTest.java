@@ -4,6 +4,7 @@ package me.t.kaurami.giftCardsApp.controllers;
 import me.t.kaurami.giftCardsApp.controllers.subscribe.SubscriptionTableController;
 import me.t.kaurami.giftCardsApp.entities.UserInfo;
 import me.t.kaurami.giftCardsApp.services.bookingservice.BookingService;
+import me.t.kaurami.giftCardsApp.services.notificationservice.NotificationService;
 import me.t.kaurami.giftCardsApp.services.subscribeservice.SubscribeService;
 import me.t.kaurami.giftCardsApp.services.userservice.UserService;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(SubscriptionTableController.class)
 @ActiveProfiles("test")
 public class SubscriptionTableControllerTest {
+
+
+    @MockBean
+    NotificationService notificationService;
 
     @MockBean
     UserService userService;

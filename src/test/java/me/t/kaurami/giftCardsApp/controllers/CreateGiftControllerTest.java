@@ -1,17 +1,22 @@
 package me.t.kaurami.giftCardsApp.controllers;
 
+import me.t.kaurami.giftCardsApp.TestConfig;
 import me.t.kaurami.giftCardsApp.controllers.gifts.CreateGiftController;
 import me.t.kaurami.giftCardsApp.entities.Category;
 import me.t.kaurami.giftCardsApp.entities.GiftDetailBuilder;
 import me.t.kaurami.giftCardsApp.repositories.CategoryRepository;
 import me.t.kaurami.giftCardsApp.repositories.GiftRepository;
+import me.t.kaurami.giftCardsApp.services.giftservice.GiftService;
+import me.t.kaurami.giftCardsApp.services.notificationservice.NotificationService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -24,15 +29,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
-@ActiveProfiles("test")
 @WebMvcTest(CreateGiftController.class)
 public class CreateGiftControllerTest {
+
+    @MockBean
+    NotificationService notificationService;
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    GiftRepository giftRepository;
+    GiftService giftService;
 
     @MockBean
     CategoryRepository categoryRepository;
@@ -56,14 +63,14 @@ public class CreateGiftControllerTest {
     @Test
     @WithMockUser
     public void getFormWithId() throws Exception {
-        Mockito.when(giftRepository.findById(1l)).thenReturn(Optional.of(new GiftDetailBuilder()
+        Mockito.when(giftService.getById(1l)).thenReturn(new GiftDetailBuilder()
                 .description("MyGift")
                 .articleNumber("11122211")
                 .rate(8)
                 .link("www.gift.org")
                 .commentary("Test gift")
 //                .categories(new Category("Test categoryfuhj"))
-                .build()));
+                .build());
         mockMvc.perform(get("/gifts/create?id=1"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("newGift"))

@@ -2,6 +2,8 @@ package me.t.kaurami.giftCardsApp.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,15 +14,17 @@ public class SubscriptionDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "subscription_id")
+    @Column(name = "subscription_id", updatable = false)
     private Long id;
     @ManyToOne
     @NotNull(message = "{validation.nullUser}")
-    @JoinColumn(name = "receiver_id")
+    @JoinColumn(name = "receiver_id", updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User receiver;
     @ManyToOne
     @NotNull(message = "{validation.nullUser}")
-    @JoinColumn(name = "subscriber_id")
+    @JoinColumn(name = "subscriber_id", updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User subscriber;
     @Min(value = 0, message = "{validation.rate}")
     @Max(value = 10, message = "{validation.rate}")

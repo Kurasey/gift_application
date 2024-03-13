@@ -7,6 +7,7 @@ import me.t.kaurami.giftCardsApp.entities.Category;
 import me.t.kaurami.giftCardsApp.entities.GiftDetail;
 import me.t.kaurami.giftCardsApp.repositories.CategoryRepository;
 import me.t.kaurami.giftCardsApp.repositories.GiftRepository;
+import me.t.kaurami.giftCardsApp.services.giftservice.GiftService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,11 @@ import java.util.List;
 @RequestMapping("gifts/create")
 public class CreateGiftController {
 
-    private GiftRepository giftRepository;
+    private GiftService giftService;
     private CategoryRepository categoryRepository;
 
-    public CreateGiftController(GiftRepository giftRepository, CategoryRepository categoryRepository) {
-        this.giftRepository = giftRepository;
+    public CreateGiftController(GiftService giftService, CategoryRepository categoryRepository) {
+        this.giftService = giftService;
         this.categoryRepository = categoryRepository;
     }
 
@@ -34,7 +35,7 @@ public class CreateGiftController {
 
     @GetMapping(params = "id")
     public String showChangeForm(@RequestParam("id") Long id, Model model) {
-        GiftDetail giftDetail = giftRepository.findById(id).get();
+        GiftDetail giftDetail = giftService.getById(id);
         model.addAttribute("giftDetail", giftDetail);
         model.addAttribute("categories", giftDetail.getCategories());
         return "newGift";
@@ -45,7 +46,7 @@ public class CreateGiftController {
         if (errors.hasErrors()) {
             return "newGift";
         }
-        giftRepository.save(giftDetail);
+        giftService.saveGift(giftDetail);
         return "redirect:/gifts";
     }
     @PostMapping(params = "id")
@@ -54,7 +55,7 @@ public class CreateGiftController {
             return "newGift";
         }
         giftDetail.setGiftId(id);
-        giftRepository.save(giftDetail);
+        giftService.saveGift(giftDetail);
         return "redirect:/gifts";
     }
 

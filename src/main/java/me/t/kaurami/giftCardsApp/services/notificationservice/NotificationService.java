@@ -1,16 +1,13 @@
 package me.t.kaurami.giftCardsApp.services.notificationservice;
 
 import me.t.kaurami.giftCardsApp.entities.User;
-import me.t.kaurami.giftCardsApp.services.notificationservice.events.AbstractGiftEvent;
+import me.t.kaurami.giftCardsApp.services.notificationservice.events.AbstractEvent;
 
 import java.util.List;
 
-public abstract class NotificationService {
+public interface NotificationService {
 
-    private User source;
-    private AbstractGiftEvent event;
-    private List<User> recipients;
+    public void setEventDelivered(Long eventId);
 
-    public abstract void notifyAboutEvent(String event);
-
+    List<AbstractEvent> getNotDelivaredEventForUser(User user);
 }

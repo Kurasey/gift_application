@@ -2,6 +2,8 @@ package me.t.kaurami.giftCardsApp.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Objects;
 
@@ -11,11 +13,12 @@ public class GiftDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "gift_id")
+    @Column(name = "gift_id", updatable = false)
     private Long giftId;
     @ManyToOne
     @NotNull(message = "{validation.nullUser}")
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     @Size(min = 2, message = "{validation.descriptionSize}")
     private String description;
